@@ -1,0 +1,77 @@
+<div class="container mt-5">
+    <div class="form-check">
+        <div *ngIf="affichage==true">
+            <div class="input-group ps-5">
+                
+            </div>
+        
+            <h3 class="mb-5"
+                style="border-radius:10px;background-color:rgb(0, 130, 200);color:white;text-align:center;padding:10px;text-transform: uppercase;font-family:Quicksand;box-shadow: 10px 5px 5px rgb(119, 119, 119);">
+                <i class="fa-solid fa-list-ol"></i>Liste Des Marques
+            </h3>
+
+
+            <button type="button" class="btn btn-outline-primary" (click)="afficherFormulaire()">Ajouter<i class="fas fa-plus-circle"></i></button>
+            <button type="button" class="btn btn-outline-warning" (click)="Recharger()">Recharger<i class="fa-solid fa-spinner"></i></button>
+            <div class={{alertColor}} role="alert" *ngIf="isafficherMessageChargement">
+                {{message}}
+                <img src="./assets/Images/chargement.gif" style="height:150px;width:880px" *ngIf="alertColor === 'alert alert-primary'">
+                <img src="./assets/Images/danger.jpg" style="height:40px;width:40px" *ngIf="alertColor === 'alert alert-danger'">
+            </div>
+            <img src="./assets/Images/erreurServeur.png" style="height:400px;width:910px" *ngIf="alertColor === 'alert alert-danger'">
+            <table class="table" *ngIf="!isafficherMessageChargement">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">libelleMarquee</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let marque of marques;let n=index;">
+                        <td>{{marque.id}}</td>
+                        <td>{{marque.libelleMarque}}</td>
+                        <td>{{marque.description}}</td>
+                        <td class="d-flex justify-content-around">           
+                            <button type="button" class="btn btn-outline-danger"
+                                (click)="supprimerMarque(marque)">Supprimer</button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="UpdateMarque(marque)">Modifier</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="affichage==false">
+        <h3 class="mb-5"
+            style="border-radius:10px;background-color:rgb(0, 130, 200);color:white;text-align:center;padding:10px;text-transform: uppercase;font-family:Quicksand;box-shadow: 10px 5px 5px rgb(119, 119, 119);">
+            <i class="fa-solid fa-list-ol"></i>Liste Des Marques
+        </h3>
+        <div class={{alertColor}} role="alert" *ngIf="isafficherMessageChargement">
+            {{message}}
+            <img src="./assets/Images/chargement.gif" style="height:150px;width:880px" *ngIf="alertColor === 'alert alert-primary'">
+            <img src="./assets/Images/danger.jpg" style="height:40px;width:40px" *ngIf="alertColor === 'alert alert-danger'">
+        </div>
+        <img src="./assets/Images/erreurServeur.webp" style="height:400px;width:800px" *ngIf="alertColor === 'alert alert-danger'">
+        <button type="button" class="btn btn-outline-warning" (click)="afficherListeMarques()">Voir Liste Marques</button>
+        <form (ngSubmit)="SauvegardeMarque()" #registerForm="ngForm">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Nom Marque</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Entrez un Nom pour la Marque"
+                    [(ngModel)]="marque.libelleMarque" name="NomMarque" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Description</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Description"
+                    [(ngModel)]="marque.description" name="Description" required>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="!registerForm.valid">
+                Reussie
+                <i class="fas fa-check-double"></i>
+            </button>
+        </form>
+
+    </div>
+</div>

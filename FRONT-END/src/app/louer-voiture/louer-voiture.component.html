@@ -1,0 +1,86 @@
+<div class="container mt-5">
+    <div class="form-check">
+        <div *ngIf="affichage==true">
+            <div class="input-group ps-5">
+                
+            </div>
+        
+            <h3 class="mb-5"
+                style="border-radius:10px;background-color:rgb(0, 130, 200);color:white;text-align:center;padding:10px;text-transform: uppercase;font-family:Quicksand;box-shadow: 10px 5px 5px rgb(119, 119, 119);">
+                <i class="fa-solid fa-list-ol"></i>Liste Des Locations
+            </h3>
+
+
+            <button type="button" class="btn btn-outline-primary" (click)="afficherFormulaire()">Ajouter<i class="fas fa-plus-circle"></i></button>
+            <button type="button" class="btn btn-outline-warning" (click)="Recharger()">Recharger<i class="fa-solid fa-spinner"></i></button>
+            <div class={{alertColor}} role="alert" *ngIf="isafficherMessageChargement">
+                {{message}}
+                <img src="./assets/Images/chargement.gif" style="height:150px;width:880px" *ngIf="alertColor === 'alert alert-primary'">
+                <img src="./assets/Images/danger.jpg" style="height:40px;width:40px" *ngIf="alertColor === 'alert alert-danger'">
+            </div>
+            <img src="./assets/Images/erreurServeur.png" style="height:400px;width:910px" *ngIf="alertColor === 'alert alert-danger'">
+            <table class="table" *ngIf="!isafficherMessageChargement">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Voiture Louée</th>
+                        <th scope="col">Locataire</th>
+                        <th scope="col">Date location</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let louerVoiture of LouerVoitures;let n=index;">
+                        <td>{{louerVoiture.id}}</td>
+                        <td>{{louerVoiture.voitureLouer}}</td>
+                        <td>{{louerVoiture.locataireLouer}}</td>
+                        <td>{{louerVoiture.dateLocation}}</td>
+                        <td class="d-flex justify-content-around">           
+                            <button type="button" class="btn btn-outline-danger"
+                                (click)="supprimerLouerVoiture(LouerVoiture)">Supprimer</button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="UpdateLouerVoiture(LouerVoiture)">Modifier</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="affichage==false">
+        <h3 class="mb-5"
+            style="border-radius:10px;background-color:rgb(0, 130, 200);color:white;text-align:center;padding:10px;text-transform: uppercase;font-family:Quicksand;box-shadow: 10px 5px 5px rgb(119, 119, 119);">
+            <i class="fa-solid fa-list-ol"></i>Liste Des LouerVoitures
+        </h3>
+        <div class={{alertColor}} role="alert" *ngIf="isafficherMessageChargement">
+            {{message}}
+            <img src="./assets/Images/chargement.gif" style="height:150px;width:880px" *ngIf="alertColor === 'alert alert-primary'">
+            <img src="./assets/Images/danger.jpg" style="height:40px;width:40px" *ngIf="alertColor === 'alert alert-danger'">
+        </div>
+        <img src="./assets/Images/erreurServeur.webp" style="height:400px;width:800px" *ngIf="alertColor === 'alert alert-danger'">
+        <button type="button" class="btn btn-outline-warning" (click)="afficherListeLouerVoitures()">Voir Liste LouerVoitures</button>
+        <form (ngSubmit)="SauvegardeLouerVoiture()" #registerForm="ngForm">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Voiture a Louer</label>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" placeholder="Modele" [(ngModel)]="LouerVoiture.voitureLouer" name="typevoiture">
+                    <option [ngValue]="voiture" *ngFor="let voiture of Listevoitures;let n=index">{{voiture.libelleVoiture}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Locataire</label>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" placeholder="Modele" [(ngModel)]="LouerVoiture.locataireLouer" name="typevoiture">
+                    <option [ngValue]="locataire" *ngFor="let locataire of ListeLocataires;let n=index">{{locataire.nom}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Date Location</label>
+                <input type="date" class="form-control" id="exampleInputPassword1" placeholder="dateLocation"
+                    [(ngModel)]="LouerVoiture.dateLocation" name="dateLocation" required>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="!registerForm.valid">
+                Reussie
+                <i class="fas fa-check-double"></i>
+            </button>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="container mt-5">
+    <div class="form-check">
+        <div *ngIf="affichage==true">
+            <div class="input-group ps-5">
+                
+            </div>
+        
+            <h3 class="mb-5"
+                style="border-radius:10px;background-color:rgb(0, 130, 200);color:white;text-align:center;padding:10px;text-transform: uppercase;font-family:Quicksand;box-shadow: 10px 5px 5px rgb(119, 119, 119);">
+                <i class="fa-solid fa-list-ol"></i>Liste Des Locataires
+            </h3>
+
+
+            <button type="button" class="btn btn-outline-primary" (click)="afficherFormulaire()">Ajouter<i class="fas fa-plus-circle"></i></button>
+            <button type="button" class="btn btn-outline-warning" (click)="Recharger()">Recharger<i class="fa-solid fa-spinner"></i></button>
+            <div class={{alertColor}} role="alert" *ngIf="isafficherMessageChargement">
+                {{message}}
+                <img src="./assets/Images/chargement.gif" style="height:150px;width:880px" *ngIf="alertColor === 'alert alert-primary'">
+                <img src="./assets/Images/danger.jpg" style="height:40px;width:40px" *ngIf="alertColor === 'alert alert-danger'">
+            </div>
+            <img src="./assets/Images/erreurServeur.png" style="height:400px;width:910px" *ngIf="alertColor === 'alert alert-danger'">
+            <table class="table" *ngIf="!isafficherMessageChargement">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Adresse</th>
+                        <th scope="col">Num de Telephone</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let locataire of locataires;let n=index;">
+                        <td>{{locataire.id}}</td>
+                        <td>{{locataire.nom}}</td>
+                        <td>{{locataire.prenom}}</td>
+                        <td>{{locataire.adresse}}</td>
+                        <td>{{locataire.numtel}}</td>
+                        <td class="d-flex justify-content-around">           
+                            <button type="button" class="btn btn-outline-danger"
+                                (click)="supprimerLocataire(locataire)">Supprimer</button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="UpdateLocataire(locataire)">Modifier</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="affichage==false">
+        <h3 class="mb-5"
+            style="border-radius:10px;background-color:rgb(0, 130, 200);color:white;text-align:center;padding:10px;text-transform: uppercase;font-family:Quicksand;box-shadow: 10px 5px 5px rgb(119, 119, 119);">
+            <i class="fa-solid fa-list-ol"></i>Liste Des Locataires
+        </h3>
+        <div class={{alertColor}} role="alert" *ngIf="isafficherMessageChargement">
+            {{message}}
+            <img src="./assets/Images/chargement.gif" style="height:150px;width:880px" *ngIf="alertColor === 'alert alert-primary'">
+            <img src="./assets/Images/danger.jpg" style="height:40px;width:40px" *ngIf="alertColor === 'alert alert-danger'">
+        </div>
+        <img src="./assets/Images/erreurServeur.webp" style="height:400px;width:800px" *ngIf="alertColor === 'alert alert-danger'">
+        <button type="button" class="btn btn-outline-warning" (click)="afficherListeLocataires()">Voir Liste Locataires</button>
+        <form (ngSubmit)="SauvegardeLocataire()" #registerForm="ngForm">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Nom</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Entrez un Nom pour la Locataire"
+                    [(ngModel)]="locataire.nom" name="NomLocataire" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Prenom</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="prenom"
+                    [(ngModel)]="locataire.prenom" name="prenom" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">adresse</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="adresse"
+                    [(ngModel)]="locataire.adresse" name="adresse" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Numero de Telephone</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="numtel"
+                    [(ngModel)]="locataire.numtel" name="numtel" required>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="!registerForm.valid">
+                Reussie
+                <i class="fas fa-check-double"></i>
+            </button>
+        </form>
+
+    </div>
+</div>
