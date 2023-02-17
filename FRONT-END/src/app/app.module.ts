@@ -17,6 +17,7 @@ import { MarqueComponent } from './marque/marque.component';
 import { ModelComponent } from './model/model.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ImageComponent } from './image/image.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     PersonneComponent,
     LouerVoitureComponent,
     MarqueComponent,
-    ModelComponent
+    ModelComponent,
+    ImageComponent
   ],
   imports: [
     BrowserModule,

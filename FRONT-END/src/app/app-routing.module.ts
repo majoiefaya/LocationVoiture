@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccueilComponent } from './accueil/accueil.component';
+import { ImageComponent } from './image/image.component';
 import { LocataireComponent } from './locataire/locataire.component';
 import { LouerVoitureComponent } from './louer-voiture/louer-voiture.component';
 import { MarqueComponent } from './marque/marque.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'locataire',component:LocataireComponent},
   {path:'proprietaire',component:ProprietaireComponent},
   {path:'locations',component:LouerVoitureComponent},
+  {path:'image',component:ImageComponent},
 ]
 
 
