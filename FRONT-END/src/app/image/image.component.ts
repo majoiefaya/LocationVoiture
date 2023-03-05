@@ -33,7 +33,7 @@ export class ImageComponent implements OnInit {
     uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
   
 
-    this.httpClient.post('http://localhost:8084/image/upload', uploadImageData, { observe: 'response' })
+    this.httpClient.post('http://localhost:8084/Image/upload', uploadImageData, { observe: 'response' })
       .subscribe((response) => {
         if (response.status === 200) {
           this.message = 'Image uploaded successfully';
@@ -47,7 +47,7 @@ export class ImageComponent implements OnInit {
   }
 
   getImage() {
-    this.httpClient.get('http://localhost:8084/image/get/' + this.imageName)
+    this.httpClient.get('http://localhost:8084/Image/get/' + this.imageName)
       .subscribe(
         res => {
           this.retrieveResonse = res;

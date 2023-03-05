@@ -27,7 +27,7 @@ import com.locationVoiture.locationVoiture.Repository.ImageRepository;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8084")
+@CrossOrigin("*")
 @RequestMapping("/Image")
 public class ImageUploadController {
 
@@ -35,6 +35,7 @@ public class ImageUploadController {
 	ImageRepository imageRepository;
 
 	@PostMapping("/upload")
+	@CrossOrigin(origins = "*")
 	public BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
 
 		System.out.println("Original Image Byte Size - " + file.getBytes().length);

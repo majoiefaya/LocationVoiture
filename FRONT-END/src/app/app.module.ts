@@ -16,8 +16,9 @@ import { LouerVoitureComponent } from './louer-voiture/louer-voiture.component';
 import { MarqueComponent } from './marque/marque.component';
 import { ModelComponent } from './model/model.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ImageComponent } from './image/image.component';
+import { CorsInterceptor } from './cors.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { ImageComponent } from './image/image.component';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: CorsInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
